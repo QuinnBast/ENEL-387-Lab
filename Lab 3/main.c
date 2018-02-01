@@ -4,7 +4,7 @@ Author	-	Quinn Bast
 Date 	-	January 31st, 2018
 */
 
-#include "I:\ENEL 387\Libraries\GPIO_lib.h"
+#include "I:\ENEL-387-Lab\Libraries\GPIO_lib.h"
 #include "LCD.h"
 
 int main(){
@@ -37,7 +37,7 @@ int main(){
 				buttonStates[i-5] = '1';
 			}
 		}
-		
+		scrollLCD(1, 1000*6000);
 		stringToLCD(buttonStates, 0, 12);
 		
 	}

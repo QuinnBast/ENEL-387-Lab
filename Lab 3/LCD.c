@@ -11,8 +11,36 @@
  *          V1.00 Initial Version
  *****************************************************************************/
  
- #include "I:\ENEL 387\Libraries\GPIO_lib.h"
+ #include "I:\ENEL-387-Lab\Libraries\GPIO_lib.h"
  #include "stm32f10x.h"
+ 
+ 
+ //LCD Initialize Commands
+ 
+ //Enable 2 line LCD
+ //Command 1 initialize
+ #define LCD_INIT_8BIT 0x38 
+ 
+ //LCD Display Init commands
+ //Command 2 Initilize Options
+ #define LCD_CMD_DISPLAY_ON_CURSOR_ON_BLINK_ON 0x0F 
+ #define LCD_CMD_DISPLAY_ON_CURSOR_ON_BLINK_OFF 0x0E
+ #define LCD_CMD_DISPLAY_ON_CURSOR_OFF 0x0C
+ #define LCD_CMD_DISPLAY_OFF 0x08
+ 
+ //Command 3 requirement
+ #define LCD_CMD_DISPLAY_CLEAR 0x01
+ 
+ //Command 4 options
+ #define LCD_CMD_DISPLAY_INCREMENT_RIGHT_WINDOW_SHIFT 0x06
+ #define LCD_CMD_DISPLAY_INCREMENT_RIGHT_NO_SHIFT 0x05
+ #define LCD_CMD_DISPLAY_INCREMENT_LEFT_WINDOW_SHIFT 0x04
+ #define LCD_CMD_DISPLAY_INCREMENT_LEFT_NO_SHIFT 0x03
+ 
+ 
+ //LCD Scroll Window commands
+ #define LCD_CMD_DISPLAY_SCROLL_WINDOW_RIGHT 0x1B
+ #define LCD_CMD_DISPLAY_SCROLL_WINDOW_LEFT 0x18
  
   void sendCommand(int data){
 	 //8 bits
@@ -34,7 +62,7 @@
 	 //set E low
 	 GPIOB->BSRR = 0x00230000;	//SET E low
 	 
-	 delay(2.5*6000);
+	 delay(1.5*6000);
  }
  
   //Initialize the LCD function for writing
@@ -76,14 +104,14 @@
 	 delay(20*6000);
 	 
 	 //Send commands to wake up and configure
-	 sendCommand(0x38);	//Wake
+	 sendCommand(LCD_INIT_8BIT);	//Wake
 	 delay(5*6000);
-	 sendCommand(0x38); //Wake
-	 sendCommand(0x38); //Wake
-	 sendCommand(0x38); //Enable 8bit
-	 sendCommand(0x0F); //Display on
-	 sendCommand(0x01); //Clear display
-	 sendCommand(0x06); //Entry Mode Set
+	 sendCommand(LCD_INIT_8BIT); //Wake
+	 sendCommand(LCD_INIT_8BIT); //Wake
+	 sendCommand(LCD_INIT_8BIT); //Enable 8bit
+	 sendCommand(LCD_DISPLAY_ON_CURSOR_ON_BLINK_ON); //Display on
+	 sendCommand(LCD_CMD_DISPLAY_CLEAR); //Clear display
+	 sendCommand(LCD_CMD_DISPLAY_INCREMENT_RIGHT_WINDOW_SHIFT); //Entry Mode Set
  }
  
  //Write a data command to the LCD
@@ -131,4 +159,16 @@
 		 ptr += 1;
 		 deref = *ptr;
 	 }while(deref != '\0');
+ }
+ 
+ 
+ //Scroll the LCD by one box
+ void scrollLCD(int, direction, int delay){
+	 if(direction == 1){
+		 	sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_RIGHT);
+			delay(delay);
+	 } else {
+			sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_LEFT);
+			delay(delay); 
+	 }
  }

@@ -22,3 +22,6 @@
  
  //Write a string to the LCD screen
  void stringToLCD(char*, int, int);
+ 
+ //Scroll the LCD screen by 1 box with a given delay
+ void scrollLCD(int, int);
