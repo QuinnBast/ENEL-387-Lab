@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include <stdint.h>
 
-
 //Bit masks for leds on STM32VLDiscovery board PC8 and PC9 using GPIOC_BSRR
 // Green LED is on bit 9 of port C, Blue LED is on bit 8.
  #define GREEN_ON	0X00000200 //
@@ -21,13 +20,14 @@
  #define BLUE_ON	0x00000100 //
  #define BLUE_OFF	0x01000000 //
 
-
  //Functions available for public use
 
 // Initialize the Cortex M3 clock using the RCC registers
   void clockInit(void);
+//Initialize a timer to avoid forced delays.
+	void initTimer(void);
 // A general purpose countdown timer delay routine
-  void delay(uint32_t delay);
+  void delay(uint32_t delay);	
 // Initialize the clocks and IO pins for the LEDs and USER switch
   void led_IO_init (void);
 // Flash some LEDs in a pattern determined by the state of the USER switch

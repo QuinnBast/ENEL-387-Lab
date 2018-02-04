@@ -13,7 +13,10 @@
  *          V1.00 Initial Version
  *****************************************************************************/
  #include "stm32f10x.h"
- #include "GPIO_lib.h"
+ //#include "GPIO_lib.h"
+ #include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ #include <time.h>
+ 
 
 /*
 * Name:         void clockInit()
@@ -44,12 +47,12 @@ void clockInit(void)
 */
 void delay(uint32_t count)
 {
-	
     int i=0;
     for(i=0; i< count; ++i)
     {
     }
 }
+
 
 // SWITCH AND LED I/O FUNCTIONS
 

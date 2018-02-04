@@ -400,6 +400,11 @@
               <FileType>5</FileType>
               <FilePath>..\Libraries\GPIO_lib.h</FilePath>
             </File>
+            <File>
+              <FileName>LCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Libraries\LCD.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

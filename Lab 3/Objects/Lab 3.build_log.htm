@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.24.2.0
 Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Faculty of Engineering, University of Regina, LIC=----
+License Information: g g, gasdf, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.24.1
@@ -21,46 +21,29 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
 Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
-H:\ENEL-387-Lab\Lab 3\Lab 3.uvprojx
-Project File Date:  02/01/2018
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Lab 3\Lab 3.uvprojx
+Project File Date:  02/04/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target 'Target 1'
-assembling startup_stm32f10x_md_vl.s...
+Build target 'Target 1'
 compiling main.c...
-LCD.h(27): warning:  #1-D: last line of file ends without a newline
-   void scrollLCD(int, int);
-main.c(45): warning:  #111-D: statement is unreachable
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(34): warning:  #1-D: last line of file ends without a newline
+  	int readTimer(void);
+main.c(47): warning:  #111-D: statement is unreachable
   	return 0;
-main.c(46): warning:  #1-D: last line of file ends without a newline
+main.c(48): warning:  #1-D: last line of file ends without a newline
   }
 main.c: 3 warnings, 0 errors
-compiling LCD.c...
-LCD.c(112): error:  #20: identifier "LCD_DISPLAY_ON_CURSOR_ON_BLINK_ON" is undefined
-  	 sendCommand(LCD_DISPLAY_ON_CURSOR_ON_BLINK_ON); //Display on
-LCD.c(166): error:  #20: identifier "direction" is undefined
-   void scrollLCD(int, direction, int delay){
-LCD.c(166): error:  #141-D: unnamed prototyped parameters not allowed when body is present
-   void scrollLCD(int, direction, int delay){
-LCD.c(167): error:  #20: identifier "direction" is undefined
-  	 if(direction == 1){
-LCD.c(169): error:  #109: expression preceding parentheses of apparent call must have (pointer-to-) function type
-  			delay(delay);
-LCD.c(172): error:  #109: expression preceding parentheses of apparent call must have (pointer-to-) function type
-  			delay(delay); 
-LCD.c(174): warning:  #1-D: last line of file ends without a newline
-   }
-LCD.c: 1 warning, 6 errors
-compiling GPIO_lib.c...
-compiling system_stm32f10x.c...
-".\Objects\Lab 3.axf" - 6 Error(s), 4 Warning(s).
+linking...
+Program Size: Code=3104 RO-data=368 RW-data=0 ZI-data=1648  
+".\Objects\Lab 3.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.1.0.pack
-                ARM.CMSIS.5.1.0
+                http://www.keil.com/pack/ARM.CMSIS.5.2.0.pack
+                ARM.CMSIS.5.2.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
    * Component: CORE Version: 5.0.2
 
@@ -73,20 +56,19 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   .\RTE\Device\STM32F100RB
   .\RTE\_Target_1
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.0\CMSIS\Include
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\system_stm32f10x.c
       Source file:   Device\Source\ARM\startup_stm32f10x_md_vl.s
       Include file:  RTE_Driver\Config\RTE_Device.h
+      Source file:   Device\Source\system_stm32f10x.c
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
 
    * Component: ARM::CMSIS:CORE:5.0.2
-Target not created.
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
