@@ -170,6 +170,28 @@ struct Time{
 	 }while(deref != '\0');
  }
  
+ int checkDelay(int delay){
+	//Delay in milliseconds
+	
+	int difference;
+	int rollover;	
+	
+	if(t.lastTime > t.thisTime){
+		//The timer rolled over, we need to calculate the difference
+		rollover = 0x0000FFFF - t.lastTime;
+		difference = rollover + t.thisTime;
+	} else {
+		difference = t.thisTime - t.lastTime;
+	}
+	
+	//if the delay is going to roll over next cycle, return true.
+	if(((t.thisTime % delay) > delay * 0.75) && ((t.thisTime + difference) % delay) < delay * 0.25){
+		return 1;
+	} else {
+		return 0;
+	}
+}
+ 
  
  //Scroll the LCD by one box
  int scrollLCD(int direction, int boxes, int delay){
@@ -204,27 +226,6 @@ int readTimer(void){
 	return TIM1->CNT;
 }
 
-int checkDelay(int delay){
-	//Delay in milliseconds
-	
-	int difference;
-	int rollover;	
-	
-	if(t.lastTime > t.thisTime){
-		//The timer rolled over, we need to calculate the difference
-		rollover = 0x0000FFFF - t.lastTime;
-		difference = rollover + t.thisTime;
-	} else {
-		difference = t.thisTime - t.lastTime;
-	}
-	
-	//if the delay is going to roll over next cycle, return true.
-	if(((t.thisTime % delay) > delay * 0.75) && ((t.thisTime + difference) % delay) < delay * 0.25){
-		return 1;
-	} else {
-		return 0;
-	}
-}
 
 void updateTimer(){
 	t.lastTime = t.thisTime;

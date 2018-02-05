@@ -9,6 +9,7 @@ Date 	-	January 31st, 2018
  #include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
   #include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h"
 	#include <stdlib.h>
+	#include <math.h>
 
 int main(){
   
@@ -50,11 +51,14 @@ int main(){
 		if(checkDelay(1000) == 1){
 			counter = counter + 1;
 		}
-		timer[4] = (counter % 10) + 48;
-		timer[3] = ((counter % 60) / 10) + 48;
+		timer[7] = (counter % 10) + 48;
+		timer[6] = ((counter % 60) / 10) + 48;
+		timer[5] = ':';
+		timer[4] = (int)(floor((counter / 60))) % 10 + 48;
+		timer[3] = (int)(floor((counter / 600))) % 6 + 48;
 		timer[2] = ':';
-		timer[1] = (counter / 60) + 48;
-		timer[0] = ((counter /60) / 100) + 48;
+		timer[1] = (int)(floor((counter / 3600))) % 10 + 48;
+		timer[0] = (int)(floor((counter / 36000))) % 10 + 48;
 		
 		stringToLCD(timer, 1, 20);
 		scrollLCD(1, 20, 2500);

@@ -24,4 +24,10 @@
  void stringToLCD(char*, int, int);
  
  //Scroll the LCD screen by 1 box with a given delay
- void scrollLCD(int, int);
+ void scrollLCD(int, int, int);
+ 
+ //Check updates
+ int checkDelay(int);
+ 
+ //Update timer
+ void updateTimer(void);
