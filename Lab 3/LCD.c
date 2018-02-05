@@ -172,7 +172,7 @@ struct Time{
  
  
  //Scroll the LCD by one box
- void scrollLCD(int direction, int boxes, int delay){
+ int scrollLCD(int direction, int boxes, int delay){
 	 int scrolls = 0;
 	 
 	 if(checkDelay(delay) == 1){
@@ -187,13 +187,16 @@ struct Time{
 				 scrolls = scrolls + 1;
 			 }
 		 }
+		 return 1;
+	 } else {
+		 return 0;
 	 }
  }
  
  void initTimer(void){
 	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;	//ENABLE the timer clock
 	TIM1->CR1 |= 0x1;										//ENABLE the timer
-	TIM1->PSC = 0x27100;									//Set the prescaler to be 160,000 resulting in one timer tick per millisecond.
+	TIM1->PSC = 0x00005Dc0;							//Set the prescaler to be 24,000 resulting in one timer tick per millisecond.
 	TIM1->CNT = 0;											//Set the value of the timer to 0
 }
 
@@ -206,9 +209,6 @@ int checkDelay(int delay){
 	
 	int difference;
 	int rollover;	
-	
-	t.lastTime = t.thisTime;
-	t.thisTime = readTimer();
 	
 	if(t.lastTime > t.thisTime){
 		//The timer rolled over, we need to calculate the difference
@@ -224,4 +224,9 @@ int checkDelay(int delay){
 	} else {
 		return 0;
 	}
+}
+
+void updateTimer(){
+	t.lastTime = t.thisTime;
+	t.thisTime = readTimer();
 }

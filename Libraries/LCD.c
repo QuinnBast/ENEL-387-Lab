@@ -10,10 +10,17 @@
  * History:
  *          V1.00 Initial Version
  *****************************************************************************/
- 
- #include "I:\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ //#include "I:\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ #include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
  #include "stm32f10x.h"
  
+  //Global timer
+ 
+struct Time{
+ uint64_t lastTime;
+ uint64_t thisTime;
+} t;
+  
  
  //LCD Initialize Commands
  
@@ -68,6 +75,8 @@
   //Initialize the LCD function for writing
  void initLCD(){
 	 
+	 initTimer();
+	 
 	 //Enable clocks for ports B anc C
 	 RCC->APB2ENR |=  RCC_APB2ENR_IOPBEN;	//Enable the clock for Port B IO
 	 RCC->APB2ENR |=  RCC_APB2ENR_IOPCEN;	//Enable the clock for Port C IO
@@ -109,7 +118,7 @@
 	 sendCommand(LCD_INIT_8BIT); //Wake
 	 sendCommand(LCD_INIT_8BIT); //Wake
 	 sendCommand(LCD_INIT_8BIT); //Enable 8bit
-	 sendCommand(LCD_DISPLAY_ON_CURSOR_ON_BLINK_ON); //Display on
+	 sendCommand(LCD_CMD_DISPLAY_ON_CURSOR_OFF); //Display on
 	 sendCommand(LCD_CMD_DISPLAY_CLEAR); //Clear display
 	 sendCommand(LCD_CMD_DISPLAY_INCREMENT_RIGHT_WINDOW_SHIFT); //Entry Mode Set
  }
@@ -163,12 +172,61 @@
  
  
  //Scroll the LCD by one box
- void scrollLCD(int, direction, int delay){
-	 if(direction == 1){
-		 	sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_RIGHT);
-			delay(delay);
+ int scrollLCD(int direction, int boxes, int delay){
+	 int scrolls = 0;
+	 
+	 if(checkDelay(delay) == 1){
+		 if(direction == 1){
+			 while(scrolls < boxes){
+				sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_RIGHT);
+				 scrolls = scrolls + 1;
+			 }
+		 } else {
+			 while(scrolls < boxes){
+				sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_LEFT);
+				 scrolls = scrolls + 1;
+			 }
+		 }
+		 return 1;
 	 } else {
-			sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_LEFT);
-			delay(delay); 
+		 return 0;
 	 }
  }
+ 
+ void initTimer(void){
+	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;	//ENABLE the timer clock
+	TIM1->CR1 |= 0x1;										//ENABLE the timer
+	TIM1->PSC = 0x00005Dc0;							//Set the prescaler to be 24,000 resulting in one timer tick per millisecond.
+	TIM1->CNT = 0;											//Set the value of the timer to 0
+}
+
+int readTimer(void){
+	return TIM1->CNT;
+}
+
+int checkDelay(int delay){
+	//Delay in milliseconds
+	
+	int difference;
+	int rollover;	
+	
+	if(t.lastTime > t.thisTime){
+		//The timer rolled over, we need to calculate the difference
+		rollover = 0x0000FFFF - t.lastTime;
+		difference = rollover + t.thisTime;
+	} else {
+		difference = t.thisTime - t.lastTime;
+	}
+	
+	//if the delay is going to roll over next cycle, return true.
+	if(((t.thisTime % delay) > delay * 0.75) && ((t.thisTime + difference) % delay) < delay * 0.25){
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+void updateTimer(){
+	t.lastTime = t.thisTime;
+	t.thisTime = readTimer();
+}
