@@ -9,10 +9,12 @@
  *----------------------------------------------------------------------------
  * History:
  *          V1.00 Initial Version
- *****************************************************************************/
- //#include "I:\ENEL-387-Lab\Libraries\GPIO_lib.h"
- #include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ **********
+ *******************************************************************/
+  #include "I:\ENSE\ENSE374Labs\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
  #include "stm32f10x.h"
+ #include <stdint.h>
  
   //Global timer
  
@@ -153,21 +155,57 @@ struct Time{
 	 //Set cursor to LCD position
 	 char* ptr = string;
 	 int deref = *ptr;
-	 int topLine = 0xC0 + offset;
-	 int bottomLine = 0x80 + offset;
+	 int position = (line == 1) ? 0xC0 + offset : 0x80 + offset;
 
 	 
-	 if(line == 1){
-			sendCommand(topLine);
-	 } else {
-		 sendCommand(bottomLine);
-	 }
+	 sendCommand(position);
 	 
 	 do{
 		 writeLCD(deref);
 		 ptr += 1;
 		 deref = *ptr;
 	 }while(deref != '\0');
+ }
+ 
+ void hexToLCD(uint32_t hexValue, int line, int offset){
+	 int i = 0;
+	 uint32_t mask = 0x0000000F;
+	 uint32_t tempHex;
+	 int position = (line == 1) ? 0xC0 + offset : 0x80 + offset;
+	 
+	 sendCommand(position);
+	 writeLCD(0x30);
+	 sendCommand(position + 1);
+	 writeLCD(0x78);
+	 position = position + 2;
+	 
+	  for(i=0; i<8 ; i++){			
+			//Shift hex value all the way to the right.
+		 tempHex = (hexValue >> (7 - i)*4) & mask;
+		 if(tempHex >= 0 && tempHex <= 9){
+			 tempHex = tempHex + 0x30;
+		 } else {
+			 tempHex = tempHex + 0x37;
+		 }
+		 writeLCD(tempHex);
+	 }
+ }
+ 
+  void intToLCD(int intValue, int line, int offset){
+	 int i = 0;
+	 int digit;
+	 int divisor = 10000;
+	 int position = (line == 1) ? 0xC0 + offset : 0x80 + offset;
+	 
+	  for(i=0; i<4 ; i++){			
+			//Get digits in order and print.
+		 digit = (intValue / divisor);
+		 digit = digit % 10;
+			intValue -= digit * divisor;
+		 digit = digit + 0x30;
+		 writeLCD(digit);
+		 divisor /= 10;
+	 }
  }
  
  
@@ -196,7 +234,7 @@ struct Time{
  void initTimer(void){
 	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;	//ENABLE the timer clock
 	TIM1->CR1 |= 0x1;										//ENABLE the timer
-	TIM1->PSC = 0x00005Dc0;							//Set the prescaler to be 24,000 resulting in one timer tick per millisecond.
+	TIM1->PSC = 0x00005DC0;							//Set the prescaler to be 24,000 resulting in one timer tick per millisecond.
 	TIM1->CNT = 0;											//Set the value of the timer to 0
 }
 
