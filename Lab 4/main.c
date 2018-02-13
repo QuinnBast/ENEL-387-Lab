@@ -14,15 +14,8 @@ Date 	-	January 31st, 2018
 
 int main(){
   
-	char topString[16] ="Quinn Bast";
-	char lowString[16] = "200352973";
-	char side2[16] = "Second Side!";
-	char buttonStates[16] = "0000";
-	uint32_t analogValue = 0;
-	char hexout[16];
-	char *point;
-	int counter = 0;
-	char timer[16] = "";
+	uint32_t analogVoltageValue = 0;
+	uint32_t analogTemperatureValue = 0;
 	
 	clockInit();
 	led_IO_init();
@@ -31,46 +24,31 @@ int main(){
 	initLCD();
 	ADCInit();
 	
-	
-	stringToLCD(topString, 0, 0);
-	stringToLCD(lowString, 1, 0);
-	stringToLCD(side2, 9, 20);
-	
 	while(1){
 		int i;
-		
 		//Update the timer's values each loop.
 		updateTimer();
+		
 		for(i=5; i<=8; i++){
-			
 			setLED(i-4, readSwitch(i));
-			
-			if(readSwitch(i) == 0){
-				buttonStates[i-5] = '0';
-			} else {
-				buttonStates[i-5] = '1';
-			}
 		}
 		
-		if(checkDelay(1000) == 1){
-			counter = counter + 1;
-		}
-		timer[7] = (counter % 10) + 48;
-		timer[6] = ((counter % 60) / 10) + 48;
-		timer[5] = ':';
-		timer[4] = (int)(floor((counter / 60))) % 10 + 48;
-		timer[3] = (int)(floor((counter / 600))) % 6 + 48;
-		timer[2] = ':';
-		timer[1] = (int)(floor((counter / 3600))) % 10 + 48;
-		timer[0] = (int)(floor((counter / 36000))) % 10 + 48;
+			analogVoltageValue = readADC(2);
+			hexToLCD(analogVoltageValue, 0, 0);
 		
-		analogValue = readADCtoHex(1);
-		hexToLCD(analogValue, 1, 20);
-		//intToLCD(123, 1, 20);
-		//stringToLCD(timer, 1, 20);
-		scrollLCD(1, 20, 2500);
-		stringToLCD(buttonStates, 0, 12);
-	}
+			decimalToLCD(analogVoltageValue * 8, 1, 0, 4);
+		  writeLCD(0x56);
+		
+			analogTemperatureValue = readADC(1);
+			hexToLCD(analogTemperatureValue, 0, 20);
+		
+			decimalToLCD(analogTemperatureValue * 8, 1, 20, 2);
+		  writeLCD(216+7);
+			writeLCD(0x43);
+		  
+		
+			scrollLCD(1, 20, 2500);
+}
 	
 	return 0;
 }

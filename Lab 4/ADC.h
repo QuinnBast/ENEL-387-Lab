@@ -15,6 +15,4 @@
  
  void ADCInit(void);
  
- void readADC(int);
- 
- uint32_t readADCtoHex(int);
+ uint32_t readADC(int);

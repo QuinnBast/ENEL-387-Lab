@@ -191,19 +191,32 @@ struct Time{
 	 }
  }
  
-  void intToLCD(int intValue, int line, int offset){
+  void decimalToLCD(int bigInt, int line, int offset, int decimalLocator){
 	 int i = 0;
 	 int digit;
-	 int divisor = 10000;
+	 int writtenDecmial = 0;
 	 int position = (line == 1) ? 0xC0 + offset : 0x80 + offset;
 	 
-	  for(i=0; i<4 ; i++){			
-			//Get digits in order and print.
-		 digit = (intValue / divisor) % 10;
-		 intValue = intValue - (digit * divisor);
-		 digit = digit + 0x30;
-		 writeLCD(digit);
-		 divisor = divisor / 10;
+	 sendCommand(position);
+		
+		
+	 while( floor((bigInt / (pow(10, i)))) > 0){
+		 i = i + 1;
+	 }
+	 
+	 if(decimalLocator == 0){
+		 //If decimal is the first number, write a 0.
+		 	 writeLCD(30);
+			 writeLCD(46);
+		   writtenDecmial = 1;
+	 }
+	 
+	 while(i >= 0){	 
+		 digit = (bigInt / (pow(10, i)));
+		 digit = digit % 10;
+		 writeLCD(digit + 0x30);
+		 bigInt = bigInt - (digit * pow(10, i));
+		 i = i - 1;
 	 }
  }
 	
