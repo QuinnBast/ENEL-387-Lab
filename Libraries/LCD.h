@@ -23,6 +23,9 @@
  //Write a string to the LCD screen
  void stringToLCD(char*, int, int);
  
+ //Write a decimal to the LCD screen
+ void intToLCD(int, int, int);
+ 
   //Write a hex value to the LCD screen
  void hexToLCD(int, int, int);
  

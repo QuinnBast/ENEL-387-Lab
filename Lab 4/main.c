@@ -4,9 +4,9 @@ Author	-	Quinn Bast
 Date 	-	January 31st, 2018
 */
 
- #include "I:\ENSE\ENSE374Labs\ENEL-387-Lab\Libraries\GPIO_lib.h"
- #include "I:\ENSE\ENSE374Labs\ENEL-387-Lab\Libraries\LCD.h"
- #include "I:\ENSE\ENSE374Labs\ENEL-387-Lab\Lab 4\ADC.h"
+ #include "I:\ENEL\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ #include "I:\ENEL\ENEL-387-Lab\Libraries\LCD.h"
+ #include "I:\ENEL\ENEL-387-Lab\Lab 4\ADC.h"
  //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
  //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h"
 	#include <stdlib.h>
@@ -64,8 +64,9 @@ int main(){
 		timer[1] = (int)(floor((counter / 3600))) % 10 + 48;
 		timer[0] = (int)(floor((counter / 36000))) % 10 + 48;
 		
-		analogValue = readADCtoHex();
+		analogValue = readADCtoHex(1);
 		hexToLCD(analogValue, 1, 20);
+		//intToLCD(123, 1, 20);
 		//stringToLCD(timer, 1, 20);
 		scrollLCD(1, 20, 2500);
 		stringToLCD(buttonStates, 0, 12);

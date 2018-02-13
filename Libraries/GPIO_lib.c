@@ -13,7 +13,7 @@
  *          V1.00 Initial Version
  *****************************************************************************/
  #include "stm32f10x.h"
- #include "I:\ENSE\ENSE374Labs\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ #include "I:\ENEL\ENEL-387-Lab\Libraries\GPIO_lib.h"
  //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
  #include <time.h>
  

@@ -15,6 +15,6 @@
  
  void ADCInit(void);
  
- void readADC(void);
+ void readADC(int);
  
- uint32_t readADCtoHex(void);
+ uint32_t readADCtoHex(int);

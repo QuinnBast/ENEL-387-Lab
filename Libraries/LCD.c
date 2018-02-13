@@ -11,10 +11,11 @@
  *          V1.00 Initial Version
  **********
  *******************************************************************/
-  #include "I:\ENSE\ENSE374Labs\ENEL-387-Lab\Libraries\GPIO_lib.h"
+  #include "I:\ENEL\ENEL-387-Lab\Libraries\GPIO_lib.h"
  //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
  #include "stm32f10x.h"
  #include <stdint.h>
+ #include <math.h>
  
   //Global timer
  
@@ -174,10 +175,9 @@ struct Time{
 	 int position = (line == 1) ? 0xC0 + offset : 0x80 + offset;
 	 
 	 sendCommand(position);
-	 writeLCD(0x30);
-	 sendCommand(position + 1);
+	 //Write 0x in front of value
+	 writeLCD(0x30);	
 	 writeLCD(0x78);
-	 position = position + 2;
 	 
 	  for(i=0; i<8 ; i++){			
 			//Shift hex value all the way to the right.
@@ -199,14 +199,35 @@ struct Time{
 	 
 	  for(i=0; i<4 ; i++){			
 			//Get digits in order and print.
-		 digit = (intValue / divisor);
-		 digit = digit % 10;
-			intValue -= digit * divisor;
+		 digit = (intValue / divisor) % 10;
+		 intValue = intValue - (digit * divisor);
 		 digit = digit + 0x30;
 		 writeLCD(digit);
-		 divisor /= 10;
+		 divisor = divisor / 10;
 	 }
  }
+	
+ int checkDelay(int delay){
+	//Delay in milliseconds
+	
+	int difference;
+	int rollover;	
+	
+	if(t.lastTime > t.thisTime){
+		//The timer rolled over, we need to calculate the difference
+		rollover = 0x0000FFFF - t.lastTime;
+		difference = rollover + t.thisTime;
+	} else {
+		difference = t.thisTime - t.lastTime;
+	}
+	
+	//if the delay is going to roll over next cycle, return true.
+	if(((t.thisTime % delay) > delay * 0.75) && ((t.thisTime + difference) % delay) < delay * 0.25){
+		return 1;
+	} else {
+		return 0;
+	}
+}
  
  
  //Scroll the LCD by one box
@@ -240,28 +261,6 @@ struct Time{
 
 int readTimer(void){
 	return TIM1->CNT;
-}
-
-int checkDelay(int delay){
-	//Delay in milliseconds
-	
-	int difference;
-	int rollover;	
-	
-	if(t.lastTime > t.thisTime){
-		//The timer rolled over, we need to calculate the difference
-		rollover = 0x0000FFFF - t.lastTime;
-		difference = rollover + t.thisTime;
-	} else {
-		difference = t.thisTime - t.lastTime;
-	}
-	
-	//if the delay is going to roll over next cycle, return true.
-	if(((t.thisTime % delay) > delay * 0.75) && ((t.thisTime + difference) % delay) < delay * 0.25){
-		return 1;
-	} else {
-		return 0;
-	}
 }
 
 void updateTimer(){
