@@ -6,16 +6,24 @@ Date 	-	January 31st, 2018
 
  #include "I:\ENEL\ENEL-387-Lab\Libraries\GPIO_lib.h"
  #include "I:\ENEL\ENEL-387-Lab\Libraries\LCD.h"
- #include "I:\ENEL\ENEL-387-Lab\Lab 4\ADC.h"
+ #include "I:\ENEL\ENEL-387-Lab\Libraries\ADC.h"
+ #include "I:\ENEL\ENEL-387-Lab\Lab 5\Interrupt.h"
+ #include "stm32f10x.h"
  //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
  //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h"
 	#include <stdlib.h>
 	#include <math.h>
 
+struct {
+	//Struct to get a 1 second delay since the SysTick registers cannot count that high.
+	int isInterrupt;
+} systick;
+
 int main(){
   
 	uint32_t analogVoltageValue = 0;
 	uint32_t analogTemperatureValue = 0;
+	systick.isInterrupt = 0;
 	
 	clockInit();
 	led_IO_init();
@@ -23,6 +31,8 @@ int main(){
 	portInit();
 	initLCD();
 	ADCInit();
+	initSysTick();
+	initExternalInterrupt(0, 0);
 	
 	while(1){
 		int i;
@@ -48,7 +58,21 @@ int main(){
 		  
 		
 			scrollLCD(1, 20, 2500);
-}
+	}
 	
 	return 0;
+}
+
+void SysTick_Handler(){
+	if(systick.isInterrupt == 0){
+		GPIOC->ODR ^= GPIO_ODR_ODR8;
+		systick.isInterrupt = 1;
+	} else {
+		systick.isInterrupt = 0;
+	}
+}
+
+void EXTI0_IRQHandler(){
+	EXTI->PR |= EXTI_PR_PR0;
+	GPIOC->ODR ^= GPIO_ODR_ODR9;
 }
