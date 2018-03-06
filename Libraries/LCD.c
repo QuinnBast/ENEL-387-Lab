@@ -75,10 +75,17 @@ struct Time{
 	 delay(1.5*6000);
  }
  
+ void lcdInitTimer(void){
+	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;	//ENABLE the timer clock
+	TIM1->CR1 |= 0x1;										//ENABLE the timer
+	TIM1->PSC = 0x00005DC0;							//Set the prescaler to be 24,000 resulting in one timer tick per millisecond.
+	TIM1->CNT = 0;											//Set the value of the timer to 0
+}
+ 
   //Initialize the LCD function for writing
  void initLCD(){
 	 
-	 initTimer();
+	 lcdInitTimer();
 	 
 	 //Enable clocks for ports B anc C
 	 RCC->APB2ENR |=  RCC_APB2ENR_IOPBEN;	//Enable the clock for Port B IO
@@ -264,19 +271,12 @@ struct Time{
 		 return 0;
 	 }
  }
- 
- void initTimer(void){
-	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;	//ENABLE the timer clock
-	TIM1->CR1 |= 0x1;										//ENABLE the timer
-	TIM1->PSC = 0x00005DC0;							//Set the prescaler to be 24,000 resulting in one timer tick per millisecond.
-	TIM1->CNT = 0;											//Set the value of the timer to 0
-}
 
-int readTimer(void){
+int lcdReadTimer(void){
 	return TIM1->CNT;
 }
 
-void updateTimer(){
+void lcdUpdateTimer(){
 	t.lastTime = t.thisTime;
-	t.thisTime = readTimer();
+	t.thisTime = lcdReadTimer();
 }

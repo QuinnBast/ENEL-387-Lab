@@ -24,8 +24,6 @@
 
 // Initialize the Cortex M3 clock using the RCC registers
   void clockInit(void);
-//Initialize a timer to avoid forced delays.
-	void initTimer(void);
 // A general purpose countdown timer delay routine
   void delay(uint32_t delay);	
 // Initialize the clocks and IO pins for the LEDs and USER switch
