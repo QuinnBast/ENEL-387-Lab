@@ -22,26 +22,41 @@ Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
 H:\ENEL\ENEL-387-Lab\Lab 6 - PWM\pwm.uvprojx
-Project File Date:  03/06/2018
+Project File Date:  03/07/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
+assembling startup_stm32f10x_md_vl.s...
+compiling Timer.c...
+Timer.c(77): warning:  #1-D: last line of file ends without a newline
+  }
+Timer.c: 1 warning, 0 errors
+compiling system_stm32f10x.c...
+compiling GPIO_lib.c...
 compiling main.c...
 I:\ENEL\ENEL-387-Lab\Libraries\LCD.h(39): warning:  #1-D: last line of file ends without a newline
-   void updateTimer(void);
+   void lcdUpdateTimer(void);
 I:\ENEL\ENEL-387-Lab\Libraries\ADC.h(18): warning:  #1-D: last line of file ends without a newline
    uint32_t readADC(int);
-I:\ENEL\ENEL-387-Lab\Lab 6 - PWM\Timer.h(22): warning:  #1-D: last line of file ends without a newline
-   void setDuty(float);
-main.c(47): warning:  #111-D: statement is unreachable
+I:\ENEL\ENEL-387-Lab\Lab 6 - PWM\Timer.h(25): warning:  #1-D: last line of file ends without a newline
+   void setPeriod(int);
+main.c(53): warning:  #111-D: statement is unreachable
   	return 0;
-main.c(48): warning:  #1-D: last line of file ends without a newline
+main.c(54): warning:  #1-D: last line of file ends without a newline
   }
 main.c: 5 warnings, 0 errors
+compiling LCD.c...
+..\Libraries\LCD.c(192): warning:  #186-D: pointless comparison of unsigned integer with zero
+  		 if(tempHex >= 0 && tempHex <= 9){
+..\Libraries\LCD.c(204): warning:  #550-D: variable "writtenDecmial" was set but never used
+  	 int writtenDecmial = 0;
+..\Libraries\LCD.c(282): warning:  #1-D: last line of file ends without a newline
+  }
+..\Libraries\LCD.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=3756 RO-data=304 RW-data=0 ZI-data=1632  
-".\Objects\pwm.axf" - 0 Error(s), 5 Warning(s).
+Program Size: Code=3980 RO-data=320 RW-data=8 ZI-data=1632  
+".\Objects\pwm.axf" - 0 Error(s), 9 Warning(s).
 
 <h2>Software Packages used:</h2>
 

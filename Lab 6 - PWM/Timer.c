@@ -13,8 +13,17 @@
  *******************************************************************/
  
   #include "stm32f10x.h"
+	
+	struct timer{
+		int period;
+		float duty;
+	} timer;
  
-void initTimer(int time, float duty){
+ //Period is in milliseconds
+void initTimer(int period, float duty){
+	
+	timer.period = period;
+	timer.duty = duty;
 	
 	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;	//ENABLE the timer clock
   RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;	//Enable A IO Ports for PA8
@@ -33,14 +42,14 @@ void initTimer(int time, float duty){
 	
 	TIM1->CCER |= TIM_CCER_CC1E;				//Output signal to the cooresponding pin
 	
-	TIM1->PSC = time - 1;								//Set the prescaler
+	TIM1->PSC = 240 - 1;							//Set the prescaler
 	
 																			//ARR is the value to count up/dpwn from.
 																			//Defines the period of the waveform.
 																			//Setting this to 1000 to further scale down the prescaler and 
 				
-	TIM1->ARR = 1000;										//Set the auto-reload resigter.
-	TIM1->CCR1 = 1000 * duty;					  //Set the compare register to the appropriate duty cycle.																		//Set the compare value to the duty cycle.
+	TIM1->ARR = period * 100;										//Set the auto-reload resigter.
+	TIM1->CCR1 = period * 100 * duty;					  //Set the compare register to the appropriate duty cycle.																		//Set the compare value to the duty cycle.
 	
 	TIM1->BDTR |= TIM_BDTR_MOE | TIM_BDTR_OSSI;
 																			//Become Australian (OSSI).
@@ -53,11 +62,14 @@ void initTimer(int time, float duty){
 }
 
 void setDuty(float duty){
-	TIM1->CCR1 = 1000 * duty;					  //Set the compare register to the appropriate duty cycle.	
+	TIM1->CCR1 = timer.period * 100 * duty;					  //Set the compare register to the appropriate duty cycle.	
+	timer.duty = duty;
 }
 
+//Period in milliseconds
 void setPeriod(int period){
-    TIM1->ARR = period;								//Set the auto-reload resigter.
+    TIM1->ARR = period * 100;								//Set the auto-reload resigter.
+		timer.period = period;
 }
 
 int readTimer(void){

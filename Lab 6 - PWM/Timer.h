@@ -20,3 +20,6 @@
  
  //Set the duty cycle
  void setDuty(float);
+ 
+ //Set the period
+ void setPeriod(int);
