@@ -17,3 +17,6 @@
  
  //Read the value of the timer.
  int readTimer(void);
+ 
+ //Set the duty cycle
+ void setDuty(float);

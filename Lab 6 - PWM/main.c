@@ -16,20 +16,29 @@ Date 	-	January 31st, 2018
 
 int main(){
 	
+	float duty = 0.5;
+	
 	clockInit();
 	led_IO_init();
 	portClockInit();
 	portInit();
 	initLCD();
-	initTimer(24000, 0.5);
+	initTimer(24000, duty);
 	
 	while(1){
 		int i;
 		
-		for(i=5; i<=8; i++){
+		for(i=5; i<=6; i++){
+			if(readSwitch(i)){
+				if(i == 5 && duty < 1){
+					duty += 0.01;
+				} else if (duty > 0) {
+					duty -= 0.01;
+				}
+			}
 			setLED(i-4, readSwitch(i));
-		}  
-		
+		} 
+		setDuty(duty);		
 		hexToLCD(readTimer(), 1, 0);
 		
 		//scrollLCD(1, 20, 2500);
