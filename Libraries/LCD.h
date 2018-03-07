@@ -36,4 +36,4 @@
  int checkDelay(int);
  
  //Update timer
- void updateTimer(void);
+ void lcdUpdateTimer(void);

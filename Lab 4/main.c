@@ -27,7 +27,7 @@ int main(){
 	while(1){
 		int i;
 		//Update the timer's values each loop.
-		updateTimer();
+		lcdUpdateTimer();
 		
 		for(i=5; i<=8; i++){
 			setLED(i-4, readSwitch(i));
