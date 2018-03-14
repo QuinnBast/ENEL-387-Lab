@@ -120,7 +120,7 @@
 			ret |= SPI2->DR;
 		}
 		
-		GPIOB->BSRR = GPIO_BSRR_BR12;	//Toggle PB12
+		GPIOB->BSRR = GPIO_BSRR_BS12;	//Toggle PB12
 		
 		return ret;
  }
