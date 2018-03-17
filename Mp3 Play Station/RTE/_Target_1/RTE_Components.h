@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Component Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'USART' 
+ * Project: 'Mp3 Play Station' 
  * Target:  'Target 1' 
  */
 

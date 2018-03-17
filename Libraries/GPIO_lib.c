@@ -13,11 +13,9 @@
  *          V1.00 Initial Version
  *****************************************************************************/
  #include "stm32f10x.h"
- #include "I:\ENEL\ENEL-387-Lab\Libraries\GPIO_lib.h"
- //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ #include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
  #include <time.h>
  
-
 /*
 * Name:         void clockInit()
 * Paramaters:   none
@@ -26,6 +24,7 @@
 */
 void clockInit(void)
 {
+	
     uint32_t temp = 0x000;
     //If you hover over the RCC you can go to the definition and then
     //see it is a structure of all the RCC registers.  Then you can
@@ -111,6 +110,7 @@ void portInit(){
 }
 
 int readSwitch(int sw){
+
 	//sw indicates the value of the switch to read
 	int value = 1;
 	

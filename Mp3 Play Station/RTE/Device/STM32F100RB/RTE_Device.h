@@ -1,8 +1,8 @@
 /* -----------------------------------------------------------------------------
  * Copyright (C) 2016 ARM Limited. All rights reserved.
  *
- * $Date:        29. March 2016
- * $Revision:    V1.1.1
+ * $Date:        29. August 2016
+ * $Revision:    V1.1.2
  *
  * Project:      RTE Device Configuration for STMicroelectronics STM32F1xx
  * -------------------------------------------------------------------------- */
@@ -902,18 +902,24 @@
 #error "Invalid SPI1_SCK Pin Configuration!"
 #endif
 
-//   <o> SPI1_MISO Pin <0=>PA6
+//   <o> SPI1_MISO Pin <0=>Not Used <1=>PA6
 #define RTE_SPI1_MISO_PORT_ID_DEF       0
 #if    (RTE_SPI1_MISO_PORT_ID_DEF == 0)
+#define RTE_SPI1_MISO_DEF               0
+#elif   (RTE_SPI1_MISO_PORT_ID_DEF == 1)
+#define RTE_SPI1_MISO_DEF               1
 #define RTE_SPI1_MISO_PORT_DEF          GPIOA
 #define RTE_SPI1_MISO_BIT_DEF           6
 #else
 #error "Invalid SPI1_MISO Pin Configuration!"
 #endif
 
-//   <o> SPI1_MOSI Pin <0=>PA7
+//   <o> SPI1_MOSI Pin <0=>Not Used <1=>PA7
 #define RTE_SPI1_MOSI_PORT_ID_DEF       0
 #if    (RTE_SPI1_MOSI_PORT_ID_DEF == 0)
+#define RTE_SPI1_MOSI_DEF               0
+#elif  (RTE_SPI1_MOSI_PORT_ID_DEF == 1)
+#define RTE_SPI1_MOSI_DEF               1
 #define RTE_SPI1_MOSI_PORT_DEF          GPIOA
 #define RTE_SPI1_MOSI_BIT_DEF           7
 #else
@@ -933,17 +939,23 @@
 #error "Invalid SPI1_SCK Pin Configuration!"
 #endif
 
-//   <o> SPI1_MISO Pin <0=>PB4
+//   <o> SPI1_MISO Pin <0=>Not Used <1=>PB4
 #define RTE_SPI1_MISO_PORT_ID_FULL      0
 #if    (RTE_SPI1_MISO_PORT_ID_FULL == 0)
+#define RTE_SPI1_MISO_FULL              0
+#elif  (RTE_SPI1_MISO_PORT_ID_FULL == 1)
+#define RTE_SPI1_MISO_FULL              1
 #define RTE_SPI1_MISO_PORT_FULL         GPIOB
 #define RTE_SPI1_MISO_BIT_FULL          4
 #else
 #error "Invalid SPI1_MISO Pin Configuration!"
 #endif
-//   <o> SPI1_MOSI Pin <0=>PB5
+//   <o> SPI1_MOSI Pin <0=>Not Used <1=>PB5
 #define RTE_SPI1_MOSI_PORT_ID_FULL      0
 #if    (RTE_SPI1_MOSI_PORT_ID_FULL == 0)
+#define RTE_SPI1_MOSI_FULL              0
+#elif  (RTE_SPI1_MOSI_PORT_ID_FULL == 1)
+#define RTE_SPI1_MOSI_FULL              1
 #define RTE_SPI1_MOSI_PORT_FULL         GPIOB
 #define RTE_SPI1_MOSI_BIT_FULL          5
 #else
@@ -956,16 +968,20 @@
 #define RTE_SPI1_AF_REMAP               AFIO_SPI1_REMAP
 #define RTE_SPI1_SCK_PORT               RTE_SPI1_SCK_PORT_FULL
 #define RTE_SPI1_SCK_BIT                RTE_SPI1_SCK_BIT_FULL
+#define RTE_SPI1_MISO                   RTE_SPI1_MISO_FULL
 #define RTE_SPI1_MISO_PORT              RTE_SPI1_MISO_PORT_FULL
 #define RTE_SPI1_MISO_BIT               RTE_SPI1_MISO_BIT_FULL
+#define RTE_SPI1_MOSI                   RTE_SPI1_MOSI_FULL
 #define RTE_SPI1_MOSI_PORT              RTE_SPI1_MOSI_PORT_FULL
 #define RTE_SPI1_MOSI_BIT               RTE_SPI1_MOSI_BIT_FULL
 #else 
 #define RTE_SPI1_AF_REMAP               AFIO_SPI1_NO_REMAP
 #define RTE_SPI1_SCK_PORT               RTE_SPI1_SCK_PORT_DEF
 #define RTE_SPI1_SCK_BIT                RTE_SPI1_SCK_BIT_DEF
+#define RTE_SPI1_MISO                   RTE_SPI1_MISO_DEF
 #define RTE_SPI1_MISO_PORT              RTE_SPI1_MISO_PORT_DEF
 #define RTE_SPI1_MISO_BIT               RTE_SPI1_MISO_BIT_DEF
+#define RTE_SPI1_MOSI                   RTE_SPI1_MOSI_DEF
 #define RTE_SPI1_MOSI_PORT              RTE_SPI1_MOSI_PORT_DEF
 #define RTE_SPI1_MOSI_BIT               RTE_SPI1_MOSI_BIT_DEF
 #endif
@@ -1026,9 +1042,12 @@
 #error "Invalid SPI2_SCK Pin Configuration!"
 #endif
 
-//   <o> SPI2_MISO Pin <0=>PB14
+//   <o> SPI2_MISO Pin <0=>Not Used <1=>PB14
 #define RTE_SPI2_MISO_PORT_ID           0
 #if    (RTE_SPI2_MISO_PORT_ID == 0)
+#define RTE_SPI2_MISO                   0
+#elif  (RTE_SPI2_MISO_PORT_ID == 1)
+#define RTE_SPI2_MISO                   1
 #define RTE_SPI2_MISO_PORT              GPIOB
 #define RTE_SPI2_MISO_BIT               14
 #define RTE_SPI2_MISO_REMAP             0
@@ -1036,9 +1055,12 @@
 #error "Invalid SPI2_MISO Pin Configuration!"
 #endif
 
-//   <o> SPI2_MOSI Pin <0=>PB15
+//   <o> SPI2_MOSI Pin <0=>Not Used <1=>PB15
 #define RTE_SPI2_MOSI_PORT_ID           0
 #if    (RTE_SPI2_MOSI_PORT_ID == 0)
+#define RTE_SPI2_MOSI                   0
+#elif  (RTE_SPI2_MOSI_PORT_ID == 1)
+#define RTE_SPI2_MOSI                   1
 #define RTE_SPI2_MOSI_PORT              GPIOB
 #define RTE_SPI2_MOSI_BIT               15
 #define RTE_SPI2_MOSI_REMAP             0
@@ -1101,18 +1123,24 @@
 #error "Invalid SPI3_SCK Pin Configuration!"
 #endif
 
-//   <o> SPI3_MISO Pin <0=>PB4
+//   <o> SPI3_MISO Pin <0=>Not Used <1=>PB4
 #define RTE_SPI3_MISO_PORT_ID_DEF       0
 #if    (RTE_SPI3_MISO_PORT_ID_DEF == 0)
+#define RTE_SPI3_MISO_DEF               0
+#elif  (RTE_SPI3_MISO_PORT_ID_DEF == 1)
+#define RTE_SPI3_MISO_DEF               1
 #define RTE_SPI3_MISO_PORT_DEF          GPIOB
 #define RTE_SPI3_MISO_BIT_DEF           4
 #else
 #error "Invalid SPI3_MISO Pin Configuration!"
 #endif
 
-//   <o> SPI3_MOSI Pin <0=>PB5
+//   <o> SPI3_MOSI <0=>Not Used Pin <1=>PB5
 #define RTE_SPI3_MOSI_PORT_ID_DEF       0
 #if    (RTE_SPI3_MOSI_PORT_ID_DEF == 0)
+#define RTE_SPI3_MOSI_DEF               0
+#elif  (RTE_SPI3_MOSI_PORT_ID_DEF == 1)
+#define RTE_SPI3_MOSI_DEF               1
 #define RTE_SPI3_MOSI_PORT_DEF          GPIOB
 #define RTE_SPI3_MOSI_BIT_DEF           5
 #else
@@ -1133,17 +1161,23 @@
 #error "Invalid SPI3_SCK Pin Configuration!"
 #endif
 
-//   <o> SPI3_MISO Pin <0=>PC11
+//   <o> SPI3_MISO Pin <0=>Not Used <1=>PC11
 #define RTE_SPI3_MISO_PORT_ID_FULL      0
 #if    (RTE_SPI3_MISO_PORT_ID_FULL == 0)
+#define RTE_SPI3_MISO_FULL              0
+#elif  (RTE_SPI3_MISO_PORT_ID_FULL == 1)
+#define RTE_SPI3_MISO_FULL              1
 #define RTE_SPI3_MISO_PORT_FULL         GPIOC
 #define RTE_SPI3_MISO_BIT_FULL          11
 #else
 #error "Invalid SPI3_MISO Pin Configuration!"
 #endif
-//   <o> SPI3_MOSI Pin <0=>PC12
+//   <o> SPI3_MOSI Pin <0=>Not Used <1=>PC12
 #define RTE_SPI3_MOSI_PORT_ID_FULL      0
 #if    (RTE_SPI3_MOSI_PORT_ID_FULL == 0)
+#define RTE_SPI3_MOSI_FULL              0
+#elif  (RTE_SPI3_MOSI_PORT_ID_FULL == 1)
+#define RTE_SPI3_MOSI_FULL              1
 #define RTE_SPI3_MOSI_PORT_FULL         GPIOC
 #define RTE_SPI3_MOSI_BIT_FULL          12
 #else
@@ -1156,16 +1190,20 @@
 #define RTE_SPI3_AF_REMAP               AFIO_SPI3_REMAP
 #define RTE_SPI3_SCK_PORT               RTE_SPI3_SCK_PORT_FULL
 #define RTE_SPI3_SCK_BIT                RTE_SPI3_SCK_BIT_FULL
+#define RTE_SPI3_MISO                   RTE_SPI3_MISO_FULL
 #define RTE_SPI3_MISO_PORT              RTE_SPI3_MISO_PORT_FULL
 #define RTE_SPI3_MISO_BIT               RTE_SPI3_MISO_BIT_FULL
+#define RTE_SPI3_MOSI                   RTE_SPI3_MOSI_FULL
 #define RTE_SPI3_MOSI_PORT              RTE_SPI3_MOSI_PORT_FULL
 #define RTE_SPI3_MOSI_BIT               RTE_SPI3_MOSI_BIT_FULL
 #else 
 #define RTE_SPI3_AF_REMAP               AFIO_SPI3_NO_REMAP
 #define RTE_SPI3_SCK_PORT               RTE_SPI3_SCK_PORT_DEF
 #define RTE_SPI3_SCK_BIT                RTE_SPI3_SCK_BIT_DEF
+#define RTE_SPI3_MISO                   RTE_SPI3_MISO_DEF
 #define RTE_SPI3_MISO_PORT              RTE_SPI3_MISO_PORT_DEF
 #define RTE_SPI3_MISO_BIT               RTE_SPI3_MISO_BIT_DEF
+#define RTE_SPI3_MOSI                   RTE_SPI3_MOSI_DEF
 #define RTE_SPI3_MOSI_PORT              RTE_SPI3_MOSI_PORT_DEF
 #define RTE_SPI3_MOSI_BIT               RTE_SPI3_MOSI_BIT_DEF
 #endif

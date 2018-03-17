@@ -11,8 +11,7 @@
  *          V1.00 Initial Version
  **********
  *******************************************************************/
-  #include "I:\ENEL\ENEL-387-Lab\Libraries\GPIO_lib.h"
- //#include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
+ #include "C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\GPIO_lib.h"
  #include "stm32f10x.h"
  #include <stdint.h>
  #include <math.h>
