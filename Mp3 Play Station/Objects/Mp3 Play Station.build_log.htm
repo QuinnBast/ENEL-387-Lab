@@ -28,14 +28,6 @@ Project File Date:  03/16/2018
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'Target 1'
 compiling GPIO_lib.c...
-compiling LCD.c...
-..\Libraries\LCD.c(191): warning:  #186-D: pointless comparison of unsigned integer with zero
-  		 if(tempHex >= 0 && tempHex <= 9){
-..\Libraries\LCD.c(203): warning:  #550-D: variable "writtenDecmial"  was set but never used
-  	 int writtenDecmial = 0;
-..\Libraries\LCD.c(281): warning:  #1-D: last line of file ends without a newline
-  }
-..\Libraries\LCD.c: 3 warnings, 0 errors
 compiling main.c...
 C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(39): warning:  #1-D: last line of file ends without a newline
    void lcdUpdateTimer(void);
@@ -49,32 +41,38 @@ C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3
   int getNoTracks();
 C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(39): warning:  #1295-D: Deprecated declaration getNoTracks - give arg types
   int getNoTracks();
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(21): warning:  #1295-D: Deprecated declaration pollController - give arg types
-   uint8_t* pollController();
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(27): warning:  #1-D: last line of file ends without a newline
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(38): warning:  #1295-D: Deprecated declaration pollController - give arg types
+   uint16_t* pollController();
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(44): warning:  #1-D: last line of file ends without a newline
    void writeNoRead(uint8_t);
-main.c(40): warning:  #177-D: variable "previousState"  was declared but never referenced
-  	int previousState[8] = {0};
-main.c(41): warning:  #177-D: variable "buttonState"  was declared but never referenced
-  	int buttonState[8] = {0};
-main.c(42): warning:  #550-D: variable "controllerData"  was set but never used
-  	uint8_t * controllerData;
-main.c: 11 warnings, 0 errors
+main.c(13): warning:  #177-D: variable "lastAction"  was declared but never referenced
+  	int lastAction[3];
+main.c: 9 warnings, 0 errors
+compiling LCD.c...
+..\Libraries\LCD.c(191): warning:  #186-D: pointless comparison of unsigned integer with zero
+  		 if(tempHex >= 0 && tempHex <= 9){
+..\Libraries\LCD.c(203): warning:  #550-D: variable "writtenDecmial"  was set but never used
+  	 int writtenDecmial = 0;
+..\Libraries\LCD.c(281): warning:  #1-D: last line of file ends without a newline
+  }
+..\Libraries\LCD.c: 3 warnings, 0 errors
 assembling startup_stm32f10x_md_vl.s...
+compiling PS2.c...
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(39): warning:  #1-D: last line of file ends without a newline
+   void lcdUpdateTimer(void);
+PS2.c(49): warning:  #177-D: variable "ret"  was declared but never referenced
+  	 	 uint8_t ret = 0x00;
+PS2.c(161): warning:  #1-D: last line of file ends without a newline
+   }
+PS2.c: 3 warnings, 0 errors
 compiling MP3Trigger.c...
 MP3Trigger.c(175): warning:  #1-D: last line of file ends without a newline
   }
 MP3Trigger.c: 1 warning, 0 errors
-compiling PS2.c...
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(39): warning:  #1-D: last line of file ends without a newline
-   void lcdUpdateTimer(void);
-PS2.c(162): warning:  #1-D: last line of file ends without a newline
-   }
-PS2.c: 2 warnings, 0 errors
 compiling system_stm32f10x.c...
 linking...
-Program Size: Code=2488 RO-data=320 RW-data=8 ZI-data=1632  
-".\Objects\Mp3 Play Station.axf" - 0 Error(s), 17 Warning(s).
+Program Size: Code=2572 RO-data=320 RW-data=8 ZI-data=1632  
+".\Objects\Mp3 Play Station.axf" - 0 Error(s), 16 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -99,13 +97,13 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
-      Source file:   Device\Source\system_stm32f10x.c
       Include file:  RTE_Driver\Config\RTE_Device.h
+      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
       Source file:   Device\Source\ARM\startup_stm32f10x_md_vl.s
+      Source file:   Device\Source\system_stm32f10x.c
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
