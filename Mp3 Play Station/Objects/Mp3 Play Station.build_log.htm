@@ -29,7 +29,7 @@ Project File Date:  03/16/2018
 Rebuild target 'Target 1'
 compiling GPIO_lib.c...
 compiling main.c...
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(39): warning:  #1-D: last line of file ends without a newline
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(42): warning:  #1-D: last line of file ends without a newline
    void lcdUpdateTimer(void);
 C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(23): warning:  #1295-D: Deprecated declaration startStop - give arg types
   void startStop();
@@ -37,28 +37,36 @@ C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3
   void nextTrack();
 C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(29): warning:  #1295-D: Deprecated declaration prevTrack - give arg types
   void prevTrack();
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(39): warning:  #1-D: last line of file ends without a newline
-  int getNoTracks();
 C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(39): warning:  #1295-D: Deprecated declaration getNoTracks - give arg types
   int getNoTracks();
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(38): warning:  #1295-D: Deprecated declaration pollController - give arg types
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(42): warning:  #1-D: last line of file ends without a newline
+  int getTrackNumber();
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(42): warning:  #1295-D: Deprecated declaration getTrackNumber - give arg types
+  int getTrackNumber();
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(53): warning:  #1295-D: Deprecated declaration pollController - give arg types
    uint16_t* pollController();
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(44): warning:  #1-D: last line of file ends without a newline
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(59): warning:  #1-D: last line of file ends without a newline
    void writeNoRead(uint8_t);
-main.c(13): warning:  #177-D: variable "lastAction"  was declared but never referenced
-  	int lastAction[3];
-main.c: 9 warnings, 0 errors
+main.c(17): warning:  #177-D: variable "counter"  was declared but never referenced
+  	int counter = 0;
+main.c: 10 warnings, 0 errors
 compiling LCD.c...
 ..\Libraries\LCD.c(191): warning:  #186-D: pointless comparison of unsigned integer with zero
   		 if(tempHex >= 0 && tempHex <= 9){
-..\Libraries\LCD.c(203): warning:  #550-D: variable "writtenDecmial"  was set but never used
+..\Libraries\LCD.c(201): warning:  #177-D: variable "i"  was declared but never referenced
+  	 int i = 0;
+..\Libraries\LCD.c(202): warning:  #177-D: variable "mask"  was declared but never referenced
+  	 uint32_t mask = 0x0000000F;
+..\Libraries\LCD.c(203): warning:  #177-D: variable "tempHex"  was declared but never referenced
+  	 uint32_t tempHex;
+..\Libraries\LCD.c(241): warning:  #550-D: variable "writtenDecmial"  was set but never used
   	 int writtenDecmial = 0;
-..\Libraries\LCD.c(281): warning:  #1-D: last line of file ends without a newline
+..\Libraries\LCD.c(319): warning:  #1-D: last line of file ends without a newline
   }
-..\Libraries\LCD.c: 3 warnings, 0 errors
+..\Libraries\LCD.c: 6 warnings, 0 errors
 assembling startup_stm32f10x_md_vl.s...
 compiling PS2.c...
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(39): warning:  #1-D: last line of file ends without a newline
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(42): warning:  #1-D: last line of file ends without a newline
    void lcdUpdateTimer(void);
 PS2.c(49): warning:  #177-D: variable "ret"  was declared but never referenced
   	 	 uint8_t ret = 0x00;
@@ -66,13 +74,13 @@ PS2.c(161): warning:  #1-D: last line of file ends without a newline
    }
 PS2.c: 3 warnings, 0 errors
 compiling MP3Trigger.c...
-MP3Trigger.c(175): warning:  #1-D: last line of file ends without a newline
+MP3Trigger.c(190): warning:  #1-D: last line of file ends without a newline
   }
 MP3Trigger.c: 1 warning, 0 errors
 compiling system_stm32f10x.c...
 linking...
-Program Size: Code=2572 RO-data=320 RW-data=8 ZI-data=1632  
-".\Objects\Mp3 Play Station.axf" - 0 Error(s), 16 Warning(s).
+Program Size: Code=6404 RO-data=320 RW-data=12 ZI-data=1636  
+".\Objects\Mp3 Play Station.axf" - 0 Error(s), 20 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -97,10 +105,10 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
-      Include file:  RTE_Driver\Config\RTE_Device.h
-      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
       Source file:   Device\Source\ARM\startup_stm32f10x_md_vl.s
+      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
       Source file:   Device\Source\system_stm32f10x.c
+      Include file:  RTE_Driver\Config\RTE_Device.h
 
    * Component: ARM::CMSIS:CORE:5.0.1
 Build Time Elapsed:  00:00:02

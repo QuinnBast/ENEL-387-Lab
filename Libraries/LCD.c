@@ -197,6 +197,44 @@ struct Time{
 	 }
  }
  
+  void intToLCD(int value, int line, int offset){
+	 int i = 0;
+	 uint32_t mask = 0x0000000F;
+	 uint32_t tempHex;
+	 int position = (line == 1) ? 0xC0 + offset : 0x80 + offset;
+	 
+	 sendCommand(position);
+	 //Determine how big the number is.
+	 if (value < 10){
+			writeLCD(value + 0x30);
+	 } else if(value < 100){
+			writeLCD(((int)(value / 10)) + 0x30);
+		  writeLCD((value % 10) + 0x30);
+	 } else if (value < 1000){
+		  writeLCD(((int)(value / 100) % 10) + 0x30);
+			writeLCD(((int)(value / 10) % 10) + 0x30);
+		  writeLCD((value % 10) + 0x30);
+	 } else if (value < 10000){
+		  writeLCD(((int)(value / 1000) % 10) + 0x30);
+		 	writeLCD(((int)(value / 100) % 10) + 0x30);
+			writeLCD(((int)(value / 10) % 10) + 0x30);
+		  writeLCD((value % 10) + 0x30);
+	 } else if ( value < 100000){
+		  writeLCD(((int)(value / 10000) % 10) + 0x30);
+		  writeLCD(((int)(value / 1000) % 10) + 0x30);
+		 	writeLCD(((int)(value / 100) % 10) + 0x30);
+			writeLCD(((int)(value / 10) % 10) + 0x30);
+		  writeLCD((value % 10) + 0x30);
+	 } else if (value < 1000000){
+		  writeLCD(((int)(value / 100000) % 10) + 0x30);
+		 	writeLCD(((int)(value / 10000) % 10) + 0x30);
+		  writeLCD(((int)(value / 1000) % 10) + 0x30);
+		 	writeLCD(((int)(value / 100) % 10) + 0x30);
+			writeLCD(((int)(value / 10) % 10) + 0x30);
+		  writeLCD((value % 10) + 0x30);
+	 }
+ }
+ 
   void decimalToLCD(int bigInt, int line, int offset, int decimalLocator){
 	 int i = 0;
 	 int digit;

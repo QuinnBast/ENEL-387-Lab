@@ -37,3 +37,6 @@ void setVolume(int volume);
 
 //Get the number of tracks on the SD Card
 int getNoTracks();
+
+//Get the current track number
+int getTrackNumber();

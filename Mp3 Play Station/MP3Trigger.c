@@ -15,6 +15,10 @@
  #include "stm32f10x.h"
  #include <stdint.h>
  #include <math.h>
+ 
+ struct trigger{
+	 int trackNumber;
+ } trigger;
 
 void initMP3Trigger(){
 	
@@ -65,14 +69,19 @@ void initMP3Trigger(){
 	// USARTDIV = USART_Mantissa + (USART_Fraction/16)
 	
 	//If clock is 24KHz
-	// 9600 = 24MHz/(16*USARTDIV); USARTDIV = 39.0625
+	// 38400 = 24MHz/(16*USARTDIV); USARTDIV = 39.0625
 	// 39 = 0x27
 	// 0.0625 = x/16; x = 1 = 1 = 0x1
 	USART3->BRR = 0x271;
 	USART3->CR1 |= USART_CR1_TE;	//Enable transmitter.
 	USART3->CR1 |= USART_CR1_RE;	//Enable reciever.
 	
+	USART3->CR1 |= USART_CR1_RXNEIE; // Enable interrupts on RXNE events.
+	NVIC_EnableIRQ(USART3_IRQn); 		 //Enable interrupt in the NVIC
+	
 	USART3->CR1 |= USART_CR1_UE;	//Enable USART
+	
+	trigger.trackNumber = 1; //Set the track number.
 }
 
 void startStop(){
@@ -87,6 +96,7 @@ void startStop(){
 }
 
 void nextTrack(){
+	trigger.trackNumber = trigger.trackNumber + 1;
 	 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
 	}
 	
@@ -98,6 +108,7 @@ void nextTrack(){
 }
 
 void prevTrack(){
+	trigger.trackNumber = trigger.trackNumber - 1;
 	 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
 	}
 	
@@ -172,4 +183,8 @@ int getNoTracks(){
 	}
 		
 	return USART3->DR;
+}
+
+int getTrackNumber(){
+	return trigger.trackNumber;
 }

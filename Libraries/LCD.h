@@ -29,6 +29,9 @@
   //Write a hex value to the LCD screen
  void hexToLCD(int, int, int);
  
+   //Write a integer value to the LCD screen
+ void intToLCD(int, int, int);
+ 
  //Scroll the LCD screen by 1 box with a given delay
  void scrollLCD(int, int, int);
  
