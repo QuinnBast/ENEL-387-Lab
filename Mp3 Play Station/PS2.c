@@ -48,6 +48,11 @@
  void PS2Init(){
 	 	 uint8_t ret = 0x00;
 	 
+	 SysTick->CTRL =  0x00;				//Turn systick Off
+	 SysTick->VAL = 0x00;					//Reset the timer
+	 SysTick->LOAD = 400000;	  //Set the interrupt to occur once every 60 seconds.
+	 SysTick->CTRL = 0x07;				//Enable SysTick, Enable Interrupts, Use 24MHz clock.
+	 
 		RCC->APB1ENR |= RCC_APB1ENR_SPI2EN;		//Enable the clock for the SPI interface
 		RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;		//Enable the clock for Port B IO
 		RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;		//Enable alternate function clock

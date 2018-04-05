@@ -18,8 +18,31 @@
  
  struct trigger{
 	 int trackNumber;
+	 int totalTracks;
  } trigger;
 
+ int getNoTracks(){
+	 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
+	}
+	
+	USART3->DR = 0x53;
+	
+	//Wait until TC (Transmission complete)!
+	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
+	}
+	
+		 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
+	}
+	
+	USART3->DR = 0x31;
+	
+	//Wait until TC (Transmission complete)!
+	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
+	}
+		
+	return USART3->DR;
+}
+ 
 void initMP3Trigger(){
 	
 	//ALTERNATE FUNCTION CONFIGURATION
@@ -76,12 +99,34 @@ void initMP3Trigger(){
 	USART3->CR1 |= USART_CR1_TE;	//Enable transmitter.
 	USART3->CR1 |= USART_CR1_RE;	//Enable reciever.
 	
+	USART3->CR1 |= USART_CR1_UE;	//Enable USART
+	
+		
 	USART3->CR1 |= USART_CR1_RXNEIE; // Enable interrupts on RXNE events.
 	NVIC_EnableIRQ(USART3_IRQn); 		 //Enable interrupt in the NVIC
 	
-	USART3->CR1 |= USART_CR1_UE;	//Enable USART
-	
 	trigger.trackNumber = 1; //Set the track number.
+	trigger.totalTracks = 34;
+}
+
+void playTrack(int trackNo){
+	 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
+	}
+	
+	USART3->DR = 0x74;
+	
+	//Wait until TC (Transmission complete)!
+	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
+	}
+	
+	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
+	}
+	
+	USART3->DR = trackNo;
+	
+	//Wait until TC (Transmission complete)!
+	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
+	}
 }
 
 void startStop(){
@@ -96,47 +141,23 @@ void startStop(){
 }
 
 void nextTrack(){
-	trigger.trackNumber = trigger.trackNumber + 1;
-	 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
+	if(trigger.trackNumber + 1 > trigger.totalTracks){
+		trigger.trackNumber = 1;
+	} else {
+		trigger.trackNumber = trigger.trackNumber + 1;
 	}
 	
-	USART3->DR = 0x46;
-	
-	//Wait until TC (Transmission complete)!
-	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
-	}
+	playTrack(trigger.trackNumber);
 }
 
 void prevTrack(){
-	trigger.trackNumber = trigger.trackNumber - 1;
-	 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
+	if(trigger.trackNumber - 1 < 1){
+		trigger.trackNumber = trigger.totalTracks;
+	} else {
+		trigger.trackNumber = trigger.trackNumber - 1;
 	}
 	
-	USART3->DR = 0x52;
-	
-	//Wait until TC (Transmission complete)!
-	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
-	}
-}
-
-void playTrack(int trackNo){
-	 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
-	}
-	
-	USART3->DR = 0x74;
-	
-	//Wait until TC (Transmission complete)!
-	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
-	}
-	
-		 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
-	}
-	
-	USART3->DR = trackNo;
-	
-	//Wait until TC (Transmission complete)!
-	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
-	}
+	playTrack(trigger.trackNumber);
 }
 
 //Maximum is 0x00; Over 0x40 (64) is inaudible
@@ -158,31 +179,6 @@ void setVolume(int volume){
 	//Wait until TC (Transmission complete)!
 	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
 	}
-}
-
-int getNoTracks(){
-	 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
-	}
-	
-	USART3->DR = 0x53;
-	
-	//Wait until TC (Transmission complete)!
-	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
-	}
-	
-		 	while((USART3->SR & USART_SR_TXE) != USART_SR_TXE){
-	}
-	
-	USART3->DR = 0x31;
-	
-	//Wait until TC (Transmission complete)!
-	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
-	}
-	
-	while((USART3->SR & USART_SR_RXNE) != USART_SR_RXNE){
-	}
-		
-	return USART3->DR;
 }
 
 int getTrackNumber(){

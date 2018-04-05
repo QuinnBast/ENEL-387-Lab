@@ -21,6 +21,7 @@
 struct Time{
  uint64_t lastTime;
  uint64_t thisTime;
+	int windowPosition;
 } t;
   
  
@@ -39,6 +40,9 @@ struct Time{
  
  //Command 3 requirement
  #define LCD_CMD_DISPLAY_CLEAR 0x01
+
+ //Return Home
+ #define LCD_CMD_RETURN_WINDOW_HOME 0x02
  
  //Command 4 options
  #define LCD_CMD_DISPLAY_INCREMENT_RIGHT_WINDOW_SHIFT 0x06
@@ -66,12 +70,12 @@ struct Time{
 	 GPIOC->ODR &= 0xFF00;	//Reset lower bits.
 	 GPIOC->ODR |= data;		//Set data on output.
 	 
-	 delay(8000);
+	 delay(3000);
 	 
 	 //set E low
 	 GPIOB->BSRR = 0x00230000;	//SET E low
 	 
-	 delay(1.5*6000);
+	 //delay(1.5*6000);
  }
  
  void lcdInitTimer(void){
@@ -130,6 +134,10 @@ struct Time{
 	 sendCommand(LCD_CMD_DISPLAY_ON_CURSOR_OFF); //Display on
 	 sendCommand(LCD_CMD_DISPLAY_CLEAR); //Clear display
 	 sendCommand(LCD_CMD_DISPLAY_INCREMENT_RIGHT_WINDOW_SHIFT); //Entry Mode Set
+	 
+	 t.thisTime = 0;
+	 t.lastTime = 0;
+	 t.windowPosition = 0;
  }
  
  //Write a data command to the LCD
@@ -160,18 +168,20 @@ struct Time{
  void stringToLCD(char* string, int line, int offset){
 	 
 	 //Set cursor to LCD position
-	 char* ptr = string;
-	 int deref = *ptr;
+	 int length = strlen(string);
+	 if(length > (40 - offset)){
+		 length = (40 - offset);
+	 }
+	 int loop = 0;
 	 int position = (line == 1) ? 0xC0 + offset : 0x80 + offset;
 
 	 
 	 sendCommand(position);
 	 
 	 do{
-		 writeLCD(deref);
-		 ptr += 1;
-		 deref = *ptr;
-	 }while(deref != '\0');
+		 writeLCD(string[loop]);
+		 loop += 1;
+	 }while(loop < length);
  }
  
  void hexToLCD(uint32_t hexValue, int line, int offset){
@@ -294,7 +304,7 @@ struct Time{
 	 if(checkDelay(delay) == 1){
 		 if(direction == 1){
 			 while(scrolls < boxes){
-				sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_RIGHT);
+				 sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_RIGHT);
 				 scrolls = scrolls + 1;
 			 }
 		 } else {
@@ -302,6 +312,10 @@ struct Time{
 				sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_LEFT);
 				 scrolls = scrolls + 1;
 			 }
+		 }
+		  t.windowPosition += 1;
+		 if(t.windowPosition > 39){
+			t.windowPosition = 0;
 		 }
 		 return 1;
 	 } else {
@@ -317,3 +331,37 @@ void lcdUpdateTimer(){
 	t.lastTime = t.thisTime;
 	t.thisTime = lcdReadTimer();
 }
+
+void clearLCD(){	 
+	 sendCommand(LCD_CMD_DISPLAY_CLEAR);
+}
+
+void stopScroll(){
+		sendCommand(LCD_CMD_DISPLAY_INCREMENT_RIGHT_NO_SHIFT);
+}
+
+void startScroll(){
+		sendCommand(LCD_CMD_DISPLAY_INCREMENT_RIGHT_WINDOW_SHIFT);
+}
+
+ void setScreenPosition(int offset){
+	  sendCommand(LCD_CMD_RETURN_WINDOW_HOME);
+	 t.windowPosition = 0;
+	 for(int i=0; i<offset; i++){
+		 sendCommand(LCD_CMD_DISPLAY_SCROLL_WINDOW_RIGHT);
+		 t.windowPosition += 1;
+		 if(t.windowPosition > 39){
+			t.windowPosition = 0;
+		 }
+	 }
+ }
+ 
+ void resetTimer(){
+	 TIM1->CNT = 0;
+	 t.lastTime = 0;
+	 t.thisTime = 0;
+ }
+ 
+ int getWindowPosition(){
+	 return t.windowPosition;
+ }

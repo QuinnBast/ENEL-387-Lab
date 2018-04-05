@@ -29,8 +29,10 @@ Project File Date:  03/16/2018
 Rebuild target 'Target 1'
 compiling GPIO_lib.c...
 compiling main.c...
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(42): warning:  #1-D: last line of file ends without a newline
-   void lcdUpdateTimer(void);
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(55): warning:  #1-D: last line of file ends without a newline
+   int getWindowPosition();
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(55): warning:  #1295-D: Deprecated declaration getWindowPosition - give arg types
+   int getWindowPosition();
 C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(23): warning:  #1295-D: Deprecated declaration startStop - give arg types
   void startStop();
 C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\MP3Trigger.h(26): warning:  #1295-D: Deprecated declaration nextTrack - give arg types
@@ -47,40 +49,64 @@ C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3
    uint16_t* pollController();
 C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Mp3 Play Station\PS2.h(59): warning:  #1-D: last line of file ends without a newline
    void writeNoRead(uint8_t);
-main.c(17): warning:  #177-D: variable "counter"  was declared but never referenced
+main.c(53): warning:  #1295-D: Deprecated declaration printSongInformation - give arg types
+  	void printSongInformation();
+main.c(54): warning:  #1295-D: Deprecated declaration updateSongInformation - give arg types
+  	void updateSongInformation();
+main.c(60): warning:  #177-D: variable "str"  was declared but never referenced
+  	char str[4] = "    ";
+main.c(61): warning:  #177-D: variable "counter"  was declared but never referenced
   	int counter = 0;
-main.c: 10 warnings, 0 errors
-compiling LCD.c...
-..\Libraries\LCD.c(191): warning:  #186-D: pointless comparison of unsigned integer with zero
-  		 if(tempHex >= 0 && tempHex <= 9){
-..\Libraries\LCD.c(201): warning:  #177-D: variable "i"  was declared but never referenced
-  	 int i = 0;
-..\Libraries\LCD.c(202): warning:  #177-D: variable "mask"  was declared but never referenced
-  	 uint32_t mask = 0x0000000F;
-..\Libraries\LCD.c(203): warning:  #177-D: variable "tempHex"  was declared but never referenced
-  	 uint32_t tempHex;
-..\Libraries\LCD.c(241): warning:  #550-D: variable "writtenDecmial"  was set but never used
-  	 int writtenDecmial = 0;
-..\Libraries\LCD.c(319): warning:  #1-D: last line of file ends without a newline
+main.c(192): warning:  #223-D: function "strncpy" declared implicitly
+      strncpy(temp, songNames[getTrackNumber() - 1], 12);
+main.c(204): warning:  #223-D: function "strlen" declared implicitly
+  	int songLength = strlen(songNames[getTrackNumber() - 1]);
+main.c(212): warning:  #223-D: function "strncpy" declared implicitly
+      strncpy(temp, songNames[getTrackNumber() - 1]+startPos-8, 20);
+main.c(215): warning:  #223-D: function "memset" declared implicitly
+  					memset(temp+len, ' ', 20 - len);   
+main.c(245): warning:  #223-D: function "strcat" declared implicitly
+  	strcat(strings, volumeTag);
+main.c(257): warning:  #223-D: function "strncpy" declared implicitly
+  	 strncpy(secondHalf, (strings + 40 - (windowPos - 1) - 1), 12 - (40 - windowPos));
+main.c(278): warning:  #1-D: last line of file ends without a newline
   }
-..\Libraries\LCD.c: 6 warnings, 0 errors
-assembling startup_stm32f10x_md_vl.s...
-compiling PS2.c...
-C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(42): warning:  #1-D: last line of file ends without a newline
-   void lcdUpdateTimer(void);
-PS2.c(49): warning:  #177-D: variable "ret"  was declared but never referenced
-  	 	 uint8_t ret = 0x00;
-PS2.c(161): warning:  #1-D: last line of file ends without a newline
+main.c: 21 warnings, 0 errors
+compiling LCD.c...
+..\Libraries\LCD.c(171): warning:  #223-D: function "strlen" declared implicitly
+  	 int length = strlen(string);
+..\Libraries\LCD.c(201): warning:  #186-D: pointless comparison of unsigned integer with zero
+  		 if(tempHex >= 0 && tempHex <= 9){
+..\Libraries\LCD.c(211): warning:  #177-D: variable "i"  was declared but never referenced
+  	 int i = 0;
+..\Libraries\LCD.c(212): warning:  #177-D: variable "mask"  was declared but never referenced
+  	 uint32_t mask = 0x0000000F;
+..\Libraries\LCD.c(213): warning:  #177-D: variable "tempHex"  was declared but never referenced
+  	 uint32_t tempHex;
+..\Libraries\LCD.c(251): warning:  #550-D: variable "writtenDecmial"  was set but never used
+  	 int writtenDecmial = 0;
+..\Libraries\LCD.c(367): warning:  #1-D: last line of file ends without a newline
    }
-PS2.c: 3 warnings, 0 errors
+..\Libraries\LCD.c: 7 warnings, 0 errors
+assembling startup_stm32f10x_md_vl.s...
 compiling MP3Trigger.c...
-MP3Trigger.c(190): warning:  #1-D: last line of file ends without a newline
+MP3Trigger.c(186): warning:  #1-D: last line of file ends without a newline
   }
 MP3Trigger.c: 1 warning, 0 errors
+compiling PS2.c...
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(55): warning:  #1-D: last line of file ends without a newline
+   int getWindowPosition();
+C:\Users\Quinn\Dropbox\College\Semester 11 2018 Winter\ENEL 387\ENEL-387-Lab\Libraries\LCD.h(55): warning:  #1295-D: Deprecated declaration getWindowPosition - give arg types
+   int getWindowPosition();
+PS2.c(49): warning:  #177-D: variable "ret"  was declared but never referenced
+  	 	 uint8_t ret = 0x00;
+PS2.c(166): warning:  #1-D: last line of file ends without a newline
+   }
+PS2.c: 4 warnings, 0 errors
 compiling system_stm32f10x.c...
 linking...
-Program Size: Code=6404 RO-data=320 RW-data=12 ZI-data=1636  
-".\Objects\Mp3 Play Station.axf" - 0 Error(s), 20 Warning(s).
+Program Size: Code=10016 RO-data=1328 RW-data=168 ZI-data=1688  
+".\Objects\Mp3 Play Station.axf" - 0 Error(s), 33 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -105,13 +131,13 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\ARM\startup_stm32f10x_md_vl.s
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
+      Source file:   Device\Source\ARM\startup_stm32f10x_md_vl.s
       Source file:   Device\Source\system_stm32f10x.c
       Include file:  RTE_Driver\Config\RTE_Device.h
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
