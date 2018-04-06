@@ -123,6 +123,7 @@ void playTrack(int trackNo){
 	}
 	
 	USART3->DR = trackNo;
+	trigger.trackNumber = trackNo;
 	
 	//Wait until TC (Transmission complete)!
 	while((USART3->SR & USART_SR_TC) != USART_SR_TC){
