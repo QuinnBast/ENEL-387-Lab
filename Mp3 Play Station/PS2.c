@@ -1,6 +1,6 @@
 /******************************************************************************
- * Name:    spi.c
- * Description: SPI functions
+ * Name:    PS2.c
+ * Description: SPI functions for the PS2 controller
  * Version: V1.00
  * Authors: Quinn Bast
  *
